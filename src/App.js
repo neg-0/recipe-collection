@@ -18,12 +18,14 @@ class App extends React.Component {
   submitRecipe = (event) => {
     event.preventDefault()
     this.setState({
-      recipes: [
-        {
-          name: this.state.newRecipeName,
-          instructions: this.state.newRecipeInstructions
-        }
-      ]
+      recipes: [...this.state.recipes,
+      {
+        name: this.state.newRecipeName,
+        instructions: this.state.newRecipeInstructions
+      }
+      ],
+      newRecipeName: "",
+      newRecipeInstructions: ""
     })
   }
 
@@ -60,7 +62,8 @@ class App extends React.Component {
         {
           this.state.recipes.length > 0 ?
             <ul>
-              <li>{this.state.recipes[0].name}</li>
+              {this.state.recipes.map((recipe, index) => <li key={index}>{recipe.name}</li>)}
+              {/* <li>{this.state.recipes[0].name}</li> */}
             </ul> :
             <p>There are no recipes to list.</p>
         }
