@@ -40,7 +40,7 @@ test('typing in the recipe name makes the recipe name appear in the input', asyn
 
   const recipeName = 'No pockets';
   userEvent.click(screen.getByText("Add Recipe"));
-  await userEvent.type(screen.getByLabelText('Recipe name:'), recipeName);
+  userEvent.type(screen.getByLabelText('Recipe name:'), recipeName);
 
   expect(screen.getByLabelText('Recipe name:').value).toEqual(recipeName);
 })
@@ -50,7 +50,7 @@ test('typing in the recipe instructions makes the instructions appear in the for
 
   const recipeInstructions = "kinda hard to write instructions without knowing what I'm cooking"
 
-  await userEvent.type(instructionsInput, recipeInstructions)
+  userEvent.type(instructionsInput, recipeInstructions)
   expect(instructionsInput.value).toEqual(recipeInstructions);
 })
 
@@ -59,8 +59,8 @@ test('recipe name from state appears in an unordered list', async () => {
   const recipeName = "Lean Pockets"
   const recipeInstructions = "place in toaster oven on 350 for 45 minutes"
 
-  await userEvent.type(instructionsInput, recipeInstructions)
-  await userEvent.type(nameInput, recipeName)
+  userEvent.type(instructionsInput, recipeInstructions)
+  userEvent.type(nameInput, recipeName)
   userEvent.click(submitButton);
 
   expect(screen.getByRole('listitem')).toBeInTheDocument();
@@ -77,8 +77,8 @@ test('adding additional recipes displays them all in an unordered list', async (
   ]
 
   for (let recipe of recipes) {
-    await userEvent.type(instructionsInput, recipe.recipeInstructions)
-    await userEvent.type(nameInput, recipe.recipeName)
+    userEvent.type(instructionsInput, recipe.recipeInstructions)
+    userEvent.type(nameInput, recipe.recipeName)
     userEvent.click(submitButton);
     expect(screen.getByText(recipe.recipeName)).toBeInTheDocument();
   }
