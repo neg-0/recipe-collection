@@ -12,10 +12,11 @@ export default class Recipe extends Component {
 
     render() {
         return (
-            <div onClick={() => this.toggleRecipe()}>
-                <li key={this.props.key}>{this.props.recipe.name}
-                    {this.state.open ? <p>{this.props.recipe.instructions}</p> : null}
-                </li>
-            </div>)
+            <li>
+                <div onClick={() => this.toggleRecipe()}>
+                    {this.props.recipe.name}
+                </div>
+                {this.state.open ? <p>{this.props.recipe.instructions}</p> : null}
+            </li>)
     }
 }
