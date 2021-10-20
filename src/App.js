@@ -1,11 +1,13 @@
 import React from 'react';
+import Recipe from './components/Recipe';
 
 class App extends React.Component {
   state = {
     isAddRecipeFormDisplayed: false,
     recipes: [],
     newRecipeName: "",
-    newRecipeInstructions: ""
+    newRecipeInstructions: "",
+    openRecipes: []
   }
 
   handleChange = (event) => {
@@ -62,7 +64,7 @@ class App extends React.Component {
         {
           this.state.recipes.length > 0 ?
             <ul>
-              {this.state.recipes.map((recipe, index) => <li key={index}>{recipe.name}</li>)}
+              {this.state.recipes.map((recipe, index) => <Recipe key={index} recipe={recipe} />)}
               {/* <li>{this.state.recipes[0].name}</li> */}
             </ul> :
             <p>There are no recipes to list.</p>

@@ -55,9 +55,31 @@ describe("Home page", () => {
         }
 
         cy.findAllByRole('listitem').should('have.length', recipes.length)
-                })
+    })
+
+    it("clicking a recipe name displays the recipe instructions", () => {
+
+        cy.findByRole('button').click()
+
+        const recipes = [
+            { recipeName: "Lean Pockets", recipeInstructions: "place in toaster oven on 350 for 45 minutes" },
+            { recipeName: "Spaghettios", recipeInstructions: "Heat, covered, in microwavable serving bowl on high 1-1/2 to 2 min or until hot" },
+            { recipeName: "Pizza Maker", recipeInstructions: "Preheat oven to 425F. Stir together mix from both pouches and 1-1/3 cups very warm water in medium bowl with fork." }
+        ]
+
+        for (let recipe of recipes) {
+            cy.findByRole('textbox', { name: /Recipe name/i }).type(recipe.recipeName)
+            cy.findByRole('textbox', { name: /instructions/i }).type(recipe.recipeInstructions)
+
+            cy.findByRole('button').click()
+
+            cy.findByText(recipe.recipeName).should('exist')
         }
 
-        cy.findAllByRole('listitem').then((arr) => expect(arr).toHaveLength(recipes.length))
+        cy.findByText(recipes[0].recipeInstructions).should("not.exist")
+
+        cy.findByText(recipes[0].recipeName).click()
+
+        cy.findByText(recipes[0].recipeInstructions).should('exist')
     })
 })
